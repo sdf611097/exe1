@@ -21,6 +21,8 @@
         <br/>
         <h4>Medications</h4>
         <div id="meds">Loading...</div>
+        <h4>Observations</h4>
+        <div id="observations">Loading...</div>
         <script type="text/javascript">
             FHIR.oauth2.ready().then(function(client) {
 
@@ -57,7 +59,14 @@
                     function(error) {
                         document.getElementById("meds").innerText = error.stack;
                     }
-                );
+                )
+
+                .then(function(data) {
+                  document.getElementById("observations").innerText = JSON.stringify(data, null, 4);
+                })
+                .catch(function(error) {
+                    document.getElementById("observations").innerText = error.stack;
+                });
 
             }).catch(console.error);
         </script>
