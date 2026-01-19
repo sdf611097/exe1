@@ -60,7 +60,13 @@
                         document.getElementById("meds").innerText = error.stack;
                     }
                 )
+                .then(() => {
 
+                // Get Observations for the selected patient
+                  client.request("/Observation?patient=" + client.patient.id, {
+                    resolveReferences: [ "subject", "performer" ],
+                    graph: true
+                })
                 .then(function(data) {
                   document.getElementById("observations").innerText = JSON.stringify(data, null, 4);
                 })
