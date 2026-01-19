@@ -21,7 +21,7 @@
         <br/>
         <h4>Medications</h4>
         <div id="meds">Loading...</div>
-        <h4>Observations 2</h4>
+        <h4>Observations 3</h4>
         <div id="observations">Loading...</div>
         <script type="text/javascript">
             FHIR.oauth2.ready().then(function(client) {
@@ -59,16 +59,15 @@
                     function(error) {
                         document.getElementById("meds").innerText = error.stack;
                     }
-                )
-                .then(() => {
+                );
 
                 // Get Observations for the selected patient
-                  client.request("/Observation?patient=" + client.patient.id, {
+                client.request("/Observation?patient=" + client.patient.id, {
                     resolveReferences: [ "subject", "performer" ],
                     graph: true
                 })
                 .then(function(data) {
-                  document.getElementById("observations").innerText = JSON.stringify(data, null, 4);
+                    document.getElementById("observations").innerText = JSON.stringify(data, null, 4);
                 })
                 .catch(function(error) {
                     document.getElementById("observations").innerText = error.stack;
